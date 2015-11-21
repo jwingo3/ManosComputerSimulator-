@@ -16,6 +16,13 @@ public class DataLine {
      private int eX;
      private int eY;
      
+    public DataLine(){
+           sX= 0;
+           sY = 0;
+           eX= 0;
+           eY = 0;
+    }
+
     public DataLine(int startPixelX, int startPixelY, int endPixelX, int endPixelY){
            sX= startPixelX;
            sY = startPixelY;
@@ -30,6 +37,14 @@ public class DataLine {
            eX= endPixelX;
            eY = endPixelY;
     }
+    
+    public void setDataLine(DataLine input){
+        this.sX = input.sX;
+        this.sY = input.sY;
+        this.eX = input.eX;
+        this.eY = input.eY;
+    }
+    
     /**
      * @return the sX
      */
@@ -85,7 +100,6 @@ public class DataLine {
     public void seteY(int eY) {
         this.eY = eY;
     }
-
 
 
 

@@ -113,21 +113,30 @@ public class ManosGUI {
         public void actionPerformed(ActionEvent e) {
             System.out.println(e.getActionCommand());
             if (e.getActionCommand().equals("Restart")) {
-                System.out.println("Restarthas been clicked");
+                System.out.println("Restart has been clicked");
                 try {
                     bi = ImageIO.read(new File("ManosComp.jpg"));
                 } catch (IOException ex) {
                     Logger.getLogger(ManosGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
             
+                cPanel.resetTimer();
                 cPanel.setBufferedImage(bi);
             
             }else if(e.getActionCommand().equals("Start")){
                 ArrayList<DataLine> inputPoints = new ArrayList(2);
-                inputPoints.add(new DataLine(100, 100, 140, 100));
-                inputPoints.add(new DataLine(140, 100, 140, 150));
+                //inputPoints.add(new DataLine(100, 100, 140, 100));
+               // inputPoints.add(new DataLine(140, 100, 140, 150));
 
-                cPanel.animateLineSeqence(inputPoints);
+               // cPanel.animateLineSeqence(inputPoints);
+                cPanel.animateDashedLine(new DataLine(358, 54, 452, 54),cPanel.RIGHT);
+                cPanel.animateDashedLine(new DataLine(358, 80, 452, 80),cPanel.LEFT);
+
+                cPanel.animateDashedLine(new DataLine(381, 164, 381, 618),cPanel.UP);
+                                
+                cPanel.animateDashedLine(new DataLine(371, 164, 371, 618),cPanel.DOWN);
+
+
                 //cPanel.animateLine(260,200,260,400);        
                // cPanel.animateLine(260,200,240,400);        
 

@@ -15,6 +15,7 @@ import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
@@ -23,7 +24,9 @@ import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 /**
@@ -53,11 +56,16 @@ class ColorPanel extends JPanel {
     //global so that functions can see where the last pixel was drawn
     public int dataLineX;
     public int dataLineY;
-
+    final int width = 100;
+    final int height = 30;
     
     private BufferedImage bimg;
     private Dimension dims;
     Timer timer = new Timer(5, null);
+    Timer dashedTmer = new Timer(40, null);
+
+    
+
     
 
 
@@ -174,25 +182,77 @@ class ColorPanel extends JPanel {
 
         
     }
+    Boolean animateDashedLine(DataLine inLine, int direction){
+        //SwingUtilities.invokeLater(new Runnable() {
+            //public void run() {
+                final int width = 100;
+                final int height = 30;
+                
+                int pad = 5;
+                final Shape rectangle = new Rectangle2D.Double(
+                        (double)pad,(double)pad,
+                        (double)(width-2*pad),
+                        (double)(height-2*pad));
+
+                ActionListener listener = new ActionListener() {
+
+                    float dashPhase = 0f;
+                    float dash[] = {5.0f,5.0f};
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                        if(direction == RIGHT || direction ==DOWN)
+                            dashPhase += 9.0f;
+                        else{
+                            dashPhase +=1.0f;
+                        }
+                        BasicStroke dashedStroke = new BasicStroke(
+                                1.0f,
+                                BasicStroke.CAP_ROUND,
+                                BasicStroke.JOIN_MITER,
+                                2.5f, //miter limit
+                                dash,
+                                dashPhase
+                                );
+                        Graphics2D g = bimg.createGraphics();
+
+                        g.setColor(Color.BLACK);
+                        g.drawLine(inLine.getsX(),inLine.getsY(),inLine.geteX(),inLine.geteY());
+                        
+                        g.setColor(Color.WHITE);       
+                        g.setStroke(dashedStroke);
+                        g.drawLine(inLine.getsX(),inLine.getsY(),inLine.geteX(),inLine.geteY());
+
+                        g.dispose();
+                        repaint();
+
+                    }
+                };
+                dashedTmer.addActionListener(listener);
+                dashedTmer.start();
+
     
-
-    Boolean animateLineSeqence(ArrayList<DataLine> inArray){
-               timer.setCoalesce(false);
-
-        animateLine(inArray.get(0).getsX(),inArray.get(0).getsY(),inArray.get(0).geteX(),inArray.get(0).geteY());
-        
-        animateLine(inArray.get(1).getsX(),inArray.get(1).getsY(),inArray.get(1).geteX(),inArray.get(1).geteY());
-            
-       
         
         return true;
+
+        
     }
+    
+    public boolean resetTimer(){
+        dashedTmer.stop();
+        return true; 
+    }
+
+    
 
 
     @Override
     public Dimension getPreferredSize() {
         return dims;
     }
+    
+                    
+    
+    
 }
 
 

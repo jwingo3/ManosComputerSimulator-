@@ -44,7 +44,10 @@ public class Point {
     public void setY(int y) {
         this.y = y;
     }
-    
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
     
     
 }
