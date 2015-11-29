@@ -9,8 +9,10 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import static java.awt.Color.RED;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,6 +49,7 @@ class ColorPanel extends JPanel {
     final int RIGHT = 2;
     final int UP = 3;
     final int DOWN = 4;
+    final int DASHED_ANIMATION_LENGTH = 40;
     
     //global variable to tell if something is being drawn
     //this is not mutexed locked so it is up to the programer to only call one 
@@ -121,6 +124,19 @@ class ColorPanel extends JPanel {
         return true;
     }
      
+    public boolean drawText(String inText, int x, int y){
+        
+        Graphics2D g = bimg.createGraphics();//Red
+        g.setColor(RED);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+        Font font = new Font("Ariel", Font.PLAIN, 12);
+        g.setFont(font);
+
+        g.drawString(inText,x,y);
+        
+        return true;
+    }
     
     //animates a line at size BOXDIM given a start index and a direction using 
     //the constansts found in this file 
@@ -160,12 +176,9 @@ class ColorPanel extends JPanel {
                 else{
                     timer.removeActionListener(this);
                     timer.stop();
-                    
-
 
                     System.out.println("stopped");
                     
-                    //change drawing mutex
                     drawing=false;
                     return;
 
@@ -184,18 +197,10 @@ class ColorPanel extends JPanel {
     }
     Boolean animateDashedLine(DataLine inLine, int direction){
         //SwingUtilities.invokeLater(new Runnable() {
-            //public void run() {
-                final int width = 100;
-                final int height = 30;
-                
-                int pad = 5;
-                final Shape rectangle = new Rectangle2D.Double(
-                        (double)pad,(double)pad,
-                        (double)(width-2*pad),
-                        (double)(height-2*pad));
+
 
                 ActionListener listener = new ActionListener() {
-
+                    int dashCounter=0;
                     float dashPhase = 0f;
                     float dash[] = {5.0f,5.0f};
                     @Override
@@ -224,6 +229,8 @@ class ColorPanel extends JPanel {
 
                         g.dispose();
                         repaint();
+                        
+
 
                     }
                 };
@@ -238,6 +245,10 @@ class ColorPanel extends JPanel {
     }
     
     public boolean resetTimer(){
+        
+        dashedTmer.restart();
+        dashedTmer.stop();
+        dashedTmer = new Timer(40, null);
         dashedTmer.stop();
         return true; 
     }
