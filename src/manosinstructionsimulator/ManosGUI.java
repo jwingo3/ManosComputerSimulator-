@@ -155,6 +155,7 @@ public class ManosGUI {
         
         //draw all data 
         drawAllRegisterData();
+        
     }
     
     //run Manos computer
@@ -190,25 +191,18 @@ public class ManosGUI {
                             outputText.repaint();
                             
                             //move Ar<-PC
-                            registers.getAr().setCurrentData(registers.getPc().getCurrentData());
-                            
+                            registers.getAr().setCurrentData(registers.getPc().getCurrentData());                          
                             //Animate line from PC 
                             cPanel.animateDashedLine(registers.getPc().getOut(),cPanel.RIGHT);
-                            
-                            //set output  value 
-                            registers.getPc().setOutputData(registers.getPc().getCurrentData());
-                            
-                            //drawCompundDataLine(registers.clock);                                
-                            drawAllRegisterData();
-                            
+                            //draw the new register data         
+                            drawAllRegisterData();                         
                             //draw bus lines
-                            drawBusLines(registers.getPc());
-                            
+                            drawBusLines(registers.getPc());   
                             //input ARline
                             cPanel.animateDashedLine(registers.getAr().getIn(), cPanel.RIGHT);
                             cPanel.animateDashedLine(registers.getAr().getLd(), cPanel.UP);
-
-             
+                            //draw selector switch 
+                            drawBusDecoder(5);
                             //change state 
                             currentState = "FETCH";
 
@@ -239,7 +233,8 @@ public class ManosGUI {
                             cPanel.animateDashedLine(registers.getIr().getLd(), cPanel.UP);
                             
                            drawMARLines();
-
+                           
+                            drawBusDecoder(7);
                             
 
                             currentState = "DECODE";
@@ -259,8 +254,8 @@ public class ManosGUI {
                                 drawAllRegisterData();
                                 drawBusLines(registers.getIr());
                     
-
-                            
+                            //draw decoder
+                            drawBusDecoder(2);
                             currentState = "INDIRECT";
                        
                             break;
@@ -294,6 +289,7 @@ public class ManosGUI {
                                 //animate a short line from AR for the input to the memory register 
                                 cPanel.animateDashedLine(new DataLine(359,137,417,137), cPanel.RIGHT);
                                 
+                                drawBusDecoder(7);
                                 drawAllRegisterData();
                                 
 
@@ -352,6 +348,7 @@ public class ManosGUI {
                             cPanel.animateDashedLine(registers.getDr().getIn(), cPanel.RIGHT);
                             cPanel.animateDashedLine(registers.getDr().getLd(), cPanel.UP);
                             
+                            drawBusDecoder(7);
                             drawMARLines();
                             currentState="AND2";              
 
@@ -388,7 +385,9 @@ public class ManosGUI {
                             cPanel.animateDashedLine(registers.getDr().getIn(), cPanel.RIGHT);
                             cPanel.animateDashedLine(registers.getDr().getLd(), cPanel.UP);
                   
-                            drawMARLines();          
+                            drawMARLines();
+                            
+                            drawBusDecoder(7);
                             currentState="ADD2";              
 
                             break;
@@ -407,6 +406,7 @@ public class ManosGUI {
                             drawCompundDataLine(registers.adderDr);
                             
                             drawAllRegisterData();
+                            
                             currentState="Stop";              
 
                             break;    
@@ -424,7 +424,9 @@ public class ManosGUI {
                             cPanel.animateDashedLine(registers.getMemoryUnit().getRead(), cPanel.UP);
                             cPanel.animateDashedLine(registers.getDr().getIn(), cPanel.RIGHT);
                             cPanel.animateDashedLine(registers.getDr().getLd(), cPanel.UP);
-             
+   
+                            
+                            drawBusDecoder(7);
                             drawMARLines();               
                             currentState="LOAD2";              
 
@@ -442,7 +444,8 @@ public class ManosGUI {
 
                             drawCompundDataLine(registers.adderAc);
                             drawCompundDataLine(registers.adderDr);
-                            
+  
+                            drawBusDecoder(4);                          
                             drawAllRegisterData();
                             currentState="Stop";              
 
@@ -469,7 +472,8 @@ public class ManosGUI {
                                 currentState="Stop";
 
                             }
-                            
+   
+                            drawBusDecoder(3);                         
                             clearImage();
                             drawAllRegisterData();
                        
@@ -498,6 +502,7 @@ public class ManosGUI {
                             cPanel.animateDashedLine(registers.getPc().getIn(), cPanel.RIGHT);
                             cPanel.animateDashedLine(registers.getPc().getLd(), cPanel.UP);
 
+                            drawBusDecoder(6);
                             currentState = "Stop";
                             break;
                         case "BSA":
@@ -541,6 +546,7 @@ public class ManosGUI {
 
                             cPanel.animateDashedLine(registers.getAr().getInr(), cPanel.UP);
               
+                            drawBusDecoder(5);
                             drawMARLines();              
                             
                             currentState = "BSA2";
@@ -557,6 +563,9 @@ public class ManosGUI {
                             //animate move 
                             drawBusLines(registers.getAr());
                             
+                            
+                            
+                            drawBusDecoder(6);
                             cPanel.animateDashedLine(registers.getPc().getIn(), cPanel.RIGHT);
                             cPanel.animateDashedLine(registers.getPc().getLd(), cPanel.UP);
                             currentState = "Stop";
@@ -578,6 +587,7 @@ public class ManosGUI {
                             cPanel.animateDashedLine(registers.getDr().getIn(), cPanel.RIGHT);
                             cPanel.animateDashedLine(registers.getDr().getLd(), cPanel.UP);
 
+                            drawBusDecoder(7);
                             drawMARLines();
                             
                             currentState = "ISZ2";
@@ -592,7 +602,7 @@ public class ManosGUI {
                             //clear and redraw the register data 
                             clearImage();
                             drawAllRegisterData();
-                            
+          
                             cPanel.animateDashedLine(registers.getDr().getInr(), cPanel.UP);
 
                             
@@ -630,12 +640,14 @@ public class ManosGUI {
                             //clear and redraw the register data 
                             clearImage();
                             drawAllRegisterData();
+                            
                             table.repaint();
                             
                             //animate Lines
                             drawBusLines(registers.getDr());
                             cPanel.animateDashedLine(registers.getMemoryUnit().getIn(), cPanel.RIGHT);
                             cPanel.animateDashedLine(registers.getMemoryUnit().getWrite(), cPanel.UP);
+                            drawBusDecoder(4);                  
 
                            drawMARLines();
                             
@@ -679,7 +691,7 @@ public class ManosGUI {
                 clearImage();
                 drawAllRegisterData();
                 runManosComputer();
-                System.out.println(count++);
+                //System.out.println(count++);
 
                 
                 
@@ -1048,79 +1060,63 @@ public class ManosGUI {
         cPanel.animateDashedLine(new DataLine(359,137,417,137), cPanel.RIGHT);
     }
    
-    /*this block of code animates everything that can be animated. Was part of old test code 
-    but can now be used as a reference on how to use each of the fucntions 
-    
-                //animate memory unit
-                cPanel.animateDashedLine(registers.getMemoryUnit().getIn(),cPanel.RIGHT);
-                cPanel.animateDashedLine(registers.getMemoryUnit().getAddress(),cPanel.LEFT);
-                cPanel.animateDashedLine(registers.getMemoryUnit().getAddressInter(),cPanel.UP);
-                cPanel.animateDashedLine(registers.getMemoryUnit().getWrite(),cPanel.UP);
-                cPanel.animateDashedLine(registers.getMemoryUnit().getRead(),cPanel.UP);
+ 
+    private void drawBusDecoder(int inputNumber){
+        
+        switch(inputNumber){
+            case 0:
+                
+                break;
+            case 1:
+                drawS0();
+                
+                break;
+                       
+            case 2:
+                drawS1();
+                break;      
+            case 3:     
+                drawS0();
+                drawS1();
+                break;
+            case 4:
+                drawS2();
+                break;
+                       
+            case 5:
+                drawS2();
+                drawS0();
+                break;
+                      
+            case 6:
+                drawS2();
+                drawS1();
+                break;
+                      
+            case 7:
+                
+                drawS2();
+                drawS1();
+                drawS0();
+            
+                break;
+                 
+                 
+                 
+                               
+            
+        }
 
-                //animate AR 
-                cPanel.animateDashedLine(registers.getAr().getOut(),cPanel.RIGHT);
-                cPanel.animateDashedLine(registers.getAr().getIn(),cPanel.RIGHT);
-                cPanel.animateDashedLine(registers.getAr().getLd(),cPanel.UP);
-                cPanel.animateDashedLine(registers.getAr().getInr(),cPanel.UP);
-                cPanel.animateDashedLine(registers.getAr().getClr(),cPanel.UP);
 
-                
-                //animate PC 
-                cPanel.animateDashedLine(registers.getPc().getOut(),cPanel.RIGHT);
-                cPanel.animateDashedLine(registers.getPc().getIn(),cPanel.RIGHT);
-                cPanel.animateDashedLine(registers.getPc().getLd(),cPanel.UP);
-                cPanel.animateDashedLine(registers.getPc().getInr(),cPanel.UP);
-                cPanel.animateDashedLine(registers.getPc().getClr(),cPanel.UP);
-                
-                //animate DR 
-                cPanel.animateDashedLine(registers.getDr().getOut(),cPanel.RIGHT);
-                cPanel.animateDashedLine(registers.getDr().getIn(),cPanel.RIGHT);
-                cPanel.animateDashedLine(registers.getDr().getLd(),cPanel.UP);
-                cPanel.animateDashedLine(registers.getDr().getInr(),cPanel.UP);
-                cPanel.animateDashedLine(registers.getDr().getClr(),cPanel.UP);
-                //animate AC 
-                cPanel.animateDashedLine(registers.getAc().getOut(),cPanel.RIGHT);
-                cPanel.animateDashedLine(registers.getAc().getIn(),cPanel.RIGHT);
-                cPanel.animateDashedLine(registers.getAc().getLd(),cPanel.UP);
-                cPanel.animateDashedLine(registers.getAc().getInr(),cPanel.UP);
-                cPanel.animateDashedLine(registers.getAc().getClr(),cPanel.UP);
-                
-                //animate ir 
-                cPanel.animateDashedLine(registers.getIr().getOut(),cPanel.RIGHT);
-                cPanel.animateDashedLine(registers.getIr().getIn(),cPanel.RIGHT);
-                cPanel.animateDashedLine(registers.getIr().getLd(),cPanel.UP);
-
-                
-                //Animate TR 
-                
-                cPanel.animateDashedLine(registers.getTr().getOut(),cPanel.RIGHT);
-                cPanel.animateDashedLine(registers.getTr().getIn(),cPanel.RIGHT);
-                cPanel.animateDashedLine(registers.getTr().getLd(),cPanel.UP);
-                cPanel.animateDashedLine(registers.getTr().getInr(),cPanel.UP);
-                cPanel.animateDashedLine(registers.getTr().getClr(),cPanel.UP);
-                
-                //draw compound lines for clock and adder 
-                drawCompundDataLine(registers.clock);                                
-                drawCompundDataLine(registers.adderDr); 
-                drawCompundDataLine(registers.adderAC);                                
-
-                drawInputData(registers.getMemoryUnit());
-                drawOutputData(registers.getMemoryUnit());
-                
-                drawOutputData(registers.getAr());
-                
-                drawOutputData(registers.getPc());
-                
-                drawOutputData(registers.getDr());
-                
-                drawOutputData(registers.getAc());
-                
-                drawOutputData(registers.getIr());
-                
-                drawOutputData(registers.getTr());
-                
-                */
+    }
+    private void drawS0(){
+        cPanel.animateDashedLine(new DataLine(421,37,432,37), cPanel.RIGHT);
+    }private void drawS1(){
+        cPanel.animateDashedLine(new DataLine(421,26,432,26), cPanel.RIGHT);
+    }private void drawS2(){
+       cPanel.animateDashedLine(new DataLine(421,14,432,14), cPanel.RIGHT);
+    }
 }
+
 
 

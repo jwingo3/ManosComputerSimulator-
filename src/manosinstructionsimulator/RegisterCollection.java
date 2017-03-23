@@ -47,11 +47,11 @@ public class RegisterCollection {
        
        
        
-       memoryUnit.setInputPixelLocation(new Point(360,100));
-       memoryUnit.setOutputPixelLocation(new Point(490,63));
+ //      memoryUnit.setInputPixelLocation(new Point(360,100));
+ //      memoryUnit.setOutputPixelLocation(new Point(490,63));
        
-       memoryUnit.setInputData((short)32768);
-       memoryUnit.setOutputData((short)32768);
+       //memoryUnit.setInputData((short)32768);
+       //memoryUnit.setOutputData((short)32768);
        
        //AR
        ar.setOut(new DataLine(358, 137, 452, 137));

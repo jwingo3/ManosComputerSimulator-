@@ -31,16 +31,15 @@ public class RegisterBlock {
     private DataLine busOutputLine = new DataLine();
     
     //integers for inputdata 
-    private short inputData;
-    private short outputData;
+   // private short inputData;
+    //private short outputData;
     private short currentData;
     
     //location for drawing the text data locations
-    private Point inputPixelLocation;
-    private Point outputPixelLocation;
+   // private Point inputPixelLocation;
+    //private Point outputPixelLocation;
     private Point currentPixelLocation;
 
-    
 
     public RegisterBlock(){
         
@@ -174,59 +173,59 @@ public class RegisterBlock {
 
     /**
      * @return the inputData
-     */
-    public short getInputData() {
-        return inputData;
-    }
-
-    /**
-     * @param inputData the inputData to set
-     */
-    public void setInputData(short inputData) {
-        this.inputData = inputData;
-    }
-
-    /**
-     * @return the outputData
-     */
-    public short getOutputData() {
-        return outputData;
-    }
-
-    /**
-     * @param outputData the outputData to set
-     */
-    public void setOutputData(short outputData) {
-        this.outputData = outputData;
-    }
+//     */
+//    public short getInputData() {
+//        return inputData;
+//    }
+//
+//    /**
+//     * @param inputData the inputData to set
+//     */
+//    public void setInputData(short inputData) {
+//        this.inputData = inputData;
+//    }
+//
+//    /**
+//     * @return the outputData
+//     */
+//    public short getOutputData() {
+//        return outputData;
+//    }
+//
+//    /**
+//     * @param outputData the outputData to set
+//     */
+//    public void setOutputData(short outputData) {
+//        this.outputData = outputData;
+//    }
 
     /**
      * @return the inputPixelLocation
-     */
-    public Point getInputPixelLocation() {
-        return inputPixelLocation;
-    }
-
-    /**
-     * @param inputPixelLocation the inputPixelLocation to set
-     */
-    public void setInputPixelLocation(Point inputPixelLocation) {
-        this.inputPixelLocation = inputPixelLocation;
-    }
-
-    /**
-     * @return the outputPixelLocation
-     */
-    public Point getOutputPixelLocation() {
-        return outputPixelLocation;
-    }
-
-    /**
-     * @param outputPixelLocation the outputPixelLocation to set
-     */
-    public void setOutputPixelLocation(Point outputPixelLocation) {
-        this.outputPixelLocation = outputPixelLocation;
-    }
+//     */
+//    public Point getInputPixelLocation() {
+//        return inputPixelLocation;
+//    }
+//
+//    /**
+//     * @param inputPixelLocation the inputPixelLocation to set
+//     */
+//    public void setInputPixelLocation(Point inputPixelLocation) {
+//        this.inputPixelLocation = inputPixelLocation;
+//    }
+//
+//    /**
+//     * @return the outputPixelLocation
+//     */
+//    public Point getOutputPixelLocation() {
+//        return outputPixelLocation;
+//    }
+//
+//    /**
+//     * @param outputPixelLocation the outputPixelLocation to set
+//     */
+//    public void setOutputPixelLocation(Point outputPixelLocation) {
+//        this.outputPixelLocation = outputPixelLocation;
+//    }
 
     
         /**
